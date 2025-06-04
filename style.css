@@ -266,9 +266,17 @@ input[type="checkbox"]:focus {
 }
 
 .toggle-content {
-    padding: 15px 20px;
-    display: none;
+    padding: 0 20px; /* 最初はパディングを0にするか、控えめにする */
+    max-height: 0; /* 初期状態で高さを0にして非表示 */
+    overflow: hidden; /* はみ出たコンテンツを隠す */
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* 高さとパディングのアニメーション */
     line-height: 1.7;
+}
+
+/* active クラスが親要素に付与されたときに表示する */
+.toggle-header.active + .toggle-content {
+    max-height: 500px; /* コンテンツの最大高さに合わせて十分な値を設定 */
+    padding: 15px 20px; /* アクティブ時にパディングを戻す */
 }
 
 .toggle-content ul {
