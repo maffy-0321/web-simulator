@@ -109,7 +109,7 @@ h1 {
         padding-bottom: 20px;
         margin-bottom: 25px;
     }
-    .right-column .section:last-of-type { 
+    .right-column .section:last-of-type {
         border-bottom: none;
         padding-bottom: 0;
         margin-bottom: 0;
@@ -121,8 +121,9 @@ h1 {
     margin-bottom: 35px;
     padding-bottom: 25px;
     border-bottom: 1px solid #f0f0f0;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    /* 印刷時に途中で分割されないようにする */
+    break-inside: avoid; /* CSS Level 3 */
+    page-break-inside: avoid; /* CSS 2.1 */
 }
 
 .section:last-of-type {
@@ -311,14 +312,11 @@ input[type="checkbox"]:focus {
     font-weight: 600;
 }
 
+/* 合計金額のグラデーションをなくす */
 #totalPrice {
     font-size: 3.5em;
     font-weight: bold;
-    color: var(--accent-start-color); /* グラデーションを削除し、単色に戻す */
-    background: none; /* グラデーションのプロパティをリセット */
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    background-clip: unset;
+    color: var(--accent-start-color); /* 通常のテキストカラーに設定 */
     display: inline-block;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -328,11 +326,7 @@ input[type="checkbox"]:focus {
 .currency-yen {
     font-size: 1.5em;
     font-weight: bold;
-    color: var(--accent-start-color); /* グラデーションを削除し、単色に戻す */
-    background: none; /* グラデーションのプロパティをリセット */
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    background-clip: unset;
+    color: var(--accent-start-color); /* 通常のテキストカラーに設定 */
     margin-left: 5px;
     vertical-align: middle;
     display: inline-block;
@@ -371,6 +365,108 @@ input[type="checkbox"]:focus {
     box-shadow: 0 2px 5px rgba(140, 130, 208, 0.3);
 }
 
+/* アラートダイアログのスタイルここから */
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* display: none; /* 初期状態はJSで制御するためCSSからは削除 */
+}
+
+.alert-dialog {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 320px; /* iPhoneサイズの最大幅を意識 */
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: #333;
+}
+
+.alert-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f7f7f7;
+}
+
+.alert-icon {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.alert-icon::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(45deg, var(--accent-start-color), var(--accent-end-color));
+    border-radius: 5px;
+    vertical-align: middle;
+    transform: rotate(45deg);
+    margin-left: 2px; /* アイコンの位置調整 */
+    margin-right: 10px;
+}
+
+
+.alert-header p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--text-color-dark);
+}
+
+.alert-body {
+    padding: 20px;
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: var(--text-color-medium);
+}
+
+.alert-body p {
+    margin: 0;
+}
+
+.alert-footer {
+    padding: 10px 20px 15px;
+    text-align: right;
+    border-top: 1px solid #f0f0f0;
+}
+
+#alertOkButton {
+    background-color: #007aff; /* iOSのOKボタンの色に寄せる */
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+#alertOkButton:hover {
+    background-color: #005bb5;
+}
+
+#alertOkButton:active {
+    background-color: #003e80;
+}
+/* アラートダイアログのスタイルここまで */
+
 
 /* PDF出力時に非表示にする要素 (例: PDFボタン自体) */
 @media print {
@@ -379,38 +475,38 @@ input[type="checkbox"]:focus {
         background-color: #fff;
         padding: 0;
         align-items: flex-start;
-        font-size: 9pt;
-        margin: 0;
+        font-size: 9pt; /* 基本フォントサイズをさらに小さく */
+        margin: 0; /* マージンをリセット */
     }
     .container {
         box-shadow: none;
         border-radius: 0;
-        padding: 8mm 10mm;
+        padding: 8mm 10mm; /* 物理的な単位でパディングを調整（上下をさらに狭く） */
         margin: 0;
-        max-width: 100%;
-        width: auto;
-        height: auto !important;
-        overflow: visible !important;
+        max-width: 100%; /* 最大幅もリセット */
+        width: auto; /* 幅を自動調整 */
+        height: auto !important; /* 高さも自動調整 */
+        overflow: visible !important; /* はみ出しを許可 */
     }
     h1 {
-        font-size: 1.6em;
+        font-size: 1.6em; /* 印刷時のH1サイズをさらに小さく */
         margin-bottom: 10px;
     }
     .subtitle {
-        font-size: 0.9em;
+        font-size: 0.9em; /* 印刷時のサブタイトルサイズ */
         margin-bottom: 15px;
     }
     h2 {
-        font-size: 1.1em;
+        font-size: 1.1em; /* 印刷時のH2サイズをさらに小さく */
         margin-bottom: 10px;
         padding-bottom: 4px;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; /* 印刷時の下線は単色に */
     }
     .section {
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-        border-bottom: 1px dashed #eee;
-        break-inside: avoid;
+        margin-bottom: 10px; /* 印刷時のセクション間隔を狭める */
+        padding-bottom: 8px; /* 下部パディングも調整 */
+        border-bottom: 1px dashed #eee; /* 薄い破線で区切りを明確に */
+        break-inside: avoid; /* セクション途中の改ページを避ける */
         page-break-inside: avoid;
     }
     .section:last-of-type {
@@ -422,19 +518,19 @@ input[type="checkbox"]:focus {
     .checkbox-group-item,
     .checkbox-item,
     .description {
-        margin-bottom: 5px;
-        padding: 0;
-        font-size: 0.85em;
-        line-height: 1.4;
+        margin-bottom: 5px; /* 印刷時の要素間隔をさらに狭める */
+        padding: 0; /* パディングをなくす */
+        font-size: 0.85em; /* 印刷時のフォントサイズをさらに小さく */
+        line-height: 1.4; /* 行の高さを調整 */
     }
     input[type="text"],
     input[type="number"] {
-        padding: 3px 5px;
+        padding: 3px 5px; /* 印刷時の入力フィールドパディング */
         font-size: 0.85em;
         width: 100%;
     }
     input[type="checkbox"] {
-        transform: scale(0.8);
+        transform: scale(0.8); /* チェックボックスをさらに縮小 */
         margin-right: 5px;
     }
     .checkbox-label {
@@ -446,21 +542,21 @@ input[type="checkbox"]:focus {
 
     /* カラムレイアウトの調整 */
     .content-wrapper {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: column; /* 強制的に1カラム */
+        gap: 10px; /* カラム間のギャップを調整 */
     }
     .left-column, .right-column {
         box-shadow: none;
         background-color: transparent;
-        padding: 0;
-        margin: 0;
+        padding: 0; /* カラムのパディングをなくす */
+        margin: 0; /* カラムのマージンをなくす */
     }
 
     /* トグル機能の調整 */
     .toggle-content {
-        display: block !important;
-        padding: 0;
-        margin-top: 5px;
+        display: block !important; /* PDF出力時にはトグルを全て開く */
+        padding: 0; /* 印刷時のパディングをなくす */
+        margin-top: 5px; /* ヘッダーとの間隔 */
     }
     .toggle-header {
         background-color: transparent;
@@ -468,8 +564,8 @@ input[type="checkbox"]:focus {
         padding-left: 0;
         font-weight: bold;
         color: #333;
-        font-size: 0.9em;
-        margin-bottom: 5px;
+        font-size: 0.9em; /* 印刷時のサイズ */
+        margin-bottom: 5px; /* コンテンツとの間隔 */
     }
     .toggle-header .toggle-icon {
         display: none;
@@ -481,10 +577,10 @@ input[type="checkbox"]:focus {
         margin-left: 0;
     }
     .toggle-content ul {
-        margin-left: 10px;
+        margin-left: 10px; /* 印刷時のリストインデント調整 */
     }
     .toggle-content ul li {
-        font-size: 0.8em;
+        font-size: 0.8em; /* 印刷時のリストアイテムフォントサイズ */
         margin-bottom: 2px;
         padding-left: 12px;
     }
@@ -504,28 +600,29 @@ input[type="checkbox"]:focus {
         font-size: 1.1em;
         margin-bottom: 5px;
     }
+    /* PDF出力時に金額が適切に表示されるように修正 */
     #totalPrice {
-        font-size: 2.2em;
+        font-size: 2.2em; /* 印刷時の金額サイズを調整 */
         margin-top: 5px;
         margin-bottom: 5px;
-        background: none; /* 印刷時もグラデーションを削除 */
+        background: none;
         -webkit-background-clip: unset;
-        -webkit-text-fill-color: var(--accent-start-color);
-        color: var(--accent-start-color);
+        -webkit-text-fill-color: var(--text-color-dark); /* 印刷時はグラデーションではなく通常のダークカラーに */
+        color: var(--text-color-dark); /* 印刷時はグラデーションではなく通常のダークカラーに */
     }
     .currency-yen {
-        font-size: 0.9em;
-        background: none; /* 印刷時もグラデーションを削除 */
+        font-size: 0.9em; /* 印刷時の「円」のサイズを調整 */
+        background: none;
         -webkit-background-clip: unset;
-        -webkit-text-fill-color: var(--accent-start-color);
-        color: var(--accent-start-color);
+        -webkit-text-fill-color: var(--text-color-dark); /* 印刷時はグラデーションではなく通常のダークカラーに */
+        color: var(--text-color-dark); /* 印刷時はグラデーションではなく通常のダークカラーに */
     }
     .tax-info {
         font-size: 0.7em;
     }
 
     /* その他の非表示要素 */
-    #exportPdfButton {
+    #exportPdfButton, .alert-overlay { /* アラートオーバーレイも印刷時は非表示にする */
         display: none !important;
     }
 }
