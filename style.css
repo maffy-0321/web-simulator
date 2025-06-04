@@ -9,6 +9,7 @@ body {
     padding: 20px;
     display: flex;
     justify-content: center;
+    align-items: flex-start; /* 上部に寄せる */
     box-sizing: border-box;
     min-height: 100vh;
 }
@@ -17,114 +18,146 @@ body {
     max-width: 1000px; /* 横幅を広げる (2カラム用) */
     width: 100%;
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* 角を少し丸く */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* 影を強調 */
     padding: 40px;
     box-sizing: border-box;
+    margin-top: 40px; /* 上部に余白を追加 */
+    margin-bottom: 40px; /* 下部にも余白を追加 */
 }
 
 h1 {
-    font-size: 2.2em;
+    font-size: 2.5em; /* フォントサイズを少し大きく */
     margin-bottom: 40px;
-    color: #333;
+    color: #2c3e50; /* 濃いめの色に */
     text-align: center;
+    font-weight: 700; /* 太字に */
 }
 
 /* 2カラムレイアウトの定義 */
 .content-wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 50px; /* ギャップを少し広げる */
 }
 
 .left-column,
 .right-column {
     flex: 1;
-    min-width: 300px;
+    min-width: 320px; /* 最小幅を少し広げる */
 }
 
 /* 画面幅が768px以下の場合、1カラムにする */
 @media (max-width: 768px) {
     .content-wrapper {
         flex-direction: column;
-        gap: 0;
+        gap: 0; /* 1カラム時はギャップをなくす */
     }
     .left-column,
     .right-column {
         min-width: unset;
         width: 100%;
     }
-    .section:last-of-type { /* 1カラムになったときに最後のセクションにボーダーをつける */
+    .section:last-of-type { /* 1カラムになったときに左カラムの最後のセクションにボーダーをつける */
         border-bottom: 1px solid #eee;
     }
-    /* 右カラムの最後のセクションは、1カラムになったときにボーダーが不要な場合もあるため調整 */
     .right-column .section:last-of-type { 
-        border-bottom: none;
+        border-bottom: none; /* 右カラムの最後のセクションはボーダーなし */
+    }
+    .container {
+        padding: 20px; /* 小画面でのパディングを調整 */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    h1 {
+        font-size: 2em; /* 小画面でのh1サイズ調整 */
+        margin-bottom: 30px;
+    }
+    .total-area {
+        margin-top: 30px;
     }
 }
 
 
 .section {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+    margin-bottom: 35px; /* セクション間の余白を調整 */
+    padding-bottom: 25px; /* 下部パディングを調整 */
     border-bottom: 1px solid #eee;
 }
 
 .section:last-of-type { /* カラム内の最後のセクションのボーダーを削除 */
     border-bottom: none;
-    margin-bottom: 15px;
+    margin-bottom: 0; /* 余白も除去 */
+    padding-bottom: 0; /* パディングも除去 */
 }
 
 h2 {
-    font-size: 1.3em;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 1.5em; /* 少し大きく */
+    color: #34495e; /* 濃いめの色に */
+    margin-bottom: 25px; /* 余白を調整 */
+    border-left: 4px solid #007bff; /* 左にボーダーライン */
+    padding-left: 10px; /* テキストとの間隔 */
 }
 
 .checkbox-group-item,
 .checkbox-item {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 18px; /* 余白を調整 */
     cursor: pointer;
-    padding: 5px 0;
+    padding: 8px 5px; /* クリックしやすいようにパディングを追加 */
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.checkbox-group-item:hover,
+.checkbox-item:hover {
+    background-color: #f0f8ff; /* ホバー時の背景色 */
 }
 
 input[type="checkbox"] {
-    margin-right: 10px;
-    transform: scale(1.1);
+    margin-right: 12px; /* 余白を調整 */
+    transform: scale(1.2); /* チェックボックスを少し大きく */
     vertical-align: middle;
+    accent-color: #007bff; /* チェックボックスの色を変更 (モダンブラウザのみ) */
+}
+
+input[type="checkbox"]:focus {
+    outline: 2px solid #007bff; /* フォーカス時のアウトライン */
+    outline-offset: 2px; /* アウトラインと要素の間の余白 */
 }
 
 .description {
-    font-size: 0.95em;
-    color: #555;
-    margin-top: -5px;
-    margin-left: 28px;
-    margin-bottom: 20px;
+    font-size: 0.9em; /* 少し小さく */
+    color: #666;
+    margin-top: -8px; /* 上部の余白を調整 */
+    margin-left: 35px; /* チェックボックスのインデントに合わせる */
+    margin-bottom: 25px; /* 下部の余白を調整 */
     word-wrap: break-word;
+    line-height: 1.5;
 }
 
 /* トグル関連のスタイル */
 .toggle-container {
-    margin-left: 28px; /* チェックボックスのインデントに合わせる */
-    margin-bottom: 20px;
-    border: 1px solid #eee;
-    border-radius: 4px;
+    margin-left: 35px; /* チェックボックスのインデントに合わせる */
+    margin-bottom: 25px;
+    border: 1px solid #dbeaff; /* ボーダーの色を調整 */
+    border-radius: 8px; /* 角を丸く */
     overflow: hidden;
     background-color: #fdfdfd;
 }
 
 .toggle-header {
-    font-size: 1em;
+    font-size: 1.05em; /* 少し大きく */
+    font-weight: bold;
     color: #007bff;
     margin: 0;
-    padding: 10px 15px;
+    padding: 12px 20px; /* パディングを調整 */
     cursor: pointer;
     background-color: #e6f2ff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccddee;
+    border-bottom: 1px solid #cceeff; /* ボーダーの色を調整 */
 }
 
 .toggle-header:hover {
@@ -132,7 +165,7 @@ input[type="checkbox"] {
 }
 
 .toggle-icon {
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.3s ease-in-out; /* アニメーションを滑らかに */
 }
 
 .toggle-header.active .toggle-icon {
@@ -140,8 +173,9 @@ input[type="checkbox"] {
 }
 
 .toggle-content {
-    padding: 10px 15px;
+    padding: 15px 20px; /* パディングを調整 */
     display: none; /* 初期状態では非表示 */
+    line-height: 1.7;
 }
 
 .toggle-content ul {
@@ -152,8 +186,8 @@ input[type="checkbox"] {
 
 .toggle-content ul li {
     position: relative;
-    padding-left: 15px;
-    margin-bottom: 5px;
+    padding-left: 20px; /* 点の位置を調整 */
+    margin-bottom: 8px; /* リストアイテム間の余白 */
     overflow-wrap: break-word;
     word-break: break-word;
     min-width: 0;
@@ -164,41 +198,58 @@ input[type="checkbox"] {
     position: absolute;
     left: 0;
     color: #007bff;
+    font-weight: bold;
 }
 
 hr {
     border: none;
     border-top: 1px solid #eee;
-    margin: 40px 0;
+    margin: 45px 0; /* 余白を調整 */
 }
 
 .total-area {
     text-align: right;
-    margin-top: 20px;
+    margin-top: 30px;
+}
+
+.total-area h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 15px;
 }
 
 #totalPrice {
-    font-size: 2.5em;
+    font-size: 3em; /* 合計金額を大きく */
     font-weight: bold;
     color: #007bff;
-    margin-left: 10px;
+    margin-left: 15px; /* 余白を調整 */
+    display: inline-block; /* 縦方向のずれを防ぐ */
+    vertical-align: middle;
 }
 
 #exportPdfButton {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
+    padding: 15px 30px; /* パディングを増やす */
+    border-radius: 8px; /* 角を丸く */
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
+    font-size: 1.1em; /* フォントサイズを少し大きく */
+    font-weight: 600; /* 少し太字に */
+    margin-top: 25px;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* ホバーとクリックのアニメーション */
     white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3); /* ボタンに影 */
 }
 
 #exportPdfButton:hover {
     background-color: #0056b3;
+    transform: translateY(-2px); /* 少し浮き上がる効果 */
+}
+
+#exportPdfButton:active {
+    background-color: #004085;
+    transform: translateY(0); /* クリック時に戻る効果 */
 }
 
 /* PDF出力時に非表示にする要素 (例: PDFボタン自体) */
@@ -210,13 +261,23 @@ hr {
         box-shadow: none;
         border-radius: 0;
         padding: 20px;
+        margin: 0;
     }
     body {
         background-color: #fff;
+        padding: 0;
     }
     /* PDF出力時にはトグルを全て開く */
     .toggle-content {
         display: block !important;
+        padding-top: 0; /* PDF出力時のパディング調整 */
+    }
+    .toggle-header {
+        background-color: transparent;
+        border-bottom: none;
+        padding-left: 0;
+        font-weight: bold;
+        color: #333; /* 黒色に戻す */
     }
     .toggle-header .toggle-icon {
         display: none;
@@ -227,12 +288,7 @@ hr {
         padding: 0;
         margin-left: 0;
     }
-    .toggle-header {
-        background-color: transparent;
-        border-bottom: none;
-        padding-left: 0;
-    }
     .toggle-content ul {
-        margin-left: 28px;
+        margin-left: 20px; /* PDF出力時のリストインデント調整 */
     }
 }
