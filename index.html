@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webサイト制作見積もりシミュレーター</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="container" id="printableArea">
+        <h1>Webサイト制作見積もりシミュレーター</h1>
+
+        <div class="content-wrapper">
+
+            <div class="left-column">
+                <div class="section">
+                    <h2>基本料金</h2>
+                    <label class="checkbox-group-item">
+                        <input type="checkbox" name="basePrice" value="light" data-price="90000">
+                        ライトプラン: 90,000円
+                    </label>
+                    <p class="description">
+                        ・studioのテンプレートを使用しての制作<br>
+                        ・1案のみご提案
+                    </p>
+
+                    <label class="checkbox-group-item">
+                        <input type="checkbox" name="basePrice" value="regular" data-price="180000">
+                        レギュラープラン: 180,000円
+                    </label>
+                    <p class="description">
+                        ・オリジナルデザインを制作<br>
+                        ・複数案ご提案
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2>コピー作成費</h2>
+                    <label class="checkbox-group-item">
+                        <input type="checkbox" name="copywritingFee" value="light_adjust" data-price="10000">
+                        お客様よりテキストの支給がある（軽い調整のみ）: 10,000円
+                    </label>
+                    <label class="checkbox-group-item">
+                        <input type="checkbox" name="copywritingFee" value="full_creation" data-price="20000">
+                        キャッチコピー・本文の提案・作成も依頼したい: 20,000円
+                    </label>
+                </div>
+
+                <div class="section">
+                    <h2>フィニッシュ</h2>
+                    <label class="checkbox-group-item">
+                        <input type="checkbox" name="finishOption" value="no_responsive" data-price="20000">
+                        レスポンシブ対応なし、簡易的な調整のみ: 20,000円
+                    </label>
+                    <label class="checkbox-group-item">
+                        <input type="checkbox" name="finishOption" value="responsive_3sizes" data-price="50000">
+                        レスポンシブ対応あり（スマホ・タブレット・PC主要3サイズに対応）: 50,000円
+                    </label>
+                </div>
+            </div> <div class="right-column">
+                <div class="section">
+                    <h2>オプション（任意）</h2>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="optionSupport" value="maintenance_support" data-price="10000">
+                        納品後の運用保守・サポート: 月額10,000円
+                    </label>
+                    <div class="toggle-container">
+                        <h4 class="toggle-header">サービス内容 <span class="toggle-icon">▼</span></h4>
+                        <div class="toggle-content">
+                            <ul>
+                                <li>簡単な使い方のレクチャー</li>
+                                <li>テキストや写真の差し替え</li>
+                                <li>軽微な修正・ページ追加など</li>
+                                <li>CMSのテンプレート追加</li>
+                                <li>CMS記事更新の代行（オプション）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="total-area">
+                    <h3>合計金額: <span id="totalPrice">000000</span>円</h3>
+                    <button id="exportPdfButton">見積書をPDFで出力する</button>
+                </div>
+            </div> </div> </div> <script src="script.js"></script>
+</body>
+</html>
